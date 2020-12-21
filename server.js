@@ -16,13 +16,21 @@ app.get('/status', (req, res) => {
     res.send({ status: 'Sever is active' });
 });
 
-server.listen(8080, () => {
-    console.log('listening on port: 8080');
-});
-
 io.on('connection', (socket) => {
     console.log('a user connected');
+
+    // on receiving message from client
+    socket.on('message', (text) => {
+        console.log(text);
+        socket.emit('message', text);
+    });
+
+    // on disconnect
     socket.on('disconnect', () => {
         console.log('user disconnected');
     });
+});
+
+server.listen(8080, () => {
+    console.log('listening on port: 8080');
 });
