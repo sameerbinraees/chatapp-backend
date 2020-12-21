@@ -3,23 +3,21 @@ const app = require('express')();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server, {
     cors: {
-        origin: 'http://localhost:3000',
-        methods: ['GET', 'POST'],
-        credentials: true,
+        origin: '*',
     },
 });
 const cors = require('cors');
-const morgan = require('morgan');
+// const morgan = require('morgan');
 
 app.use(cors());
-app.use(morgan('dev'));
+// app.use(morgan('dev'));
 
 app.get('/status', (req, res) => {
     res.send({ status: 'Sever is active' });
 });
 
-server.listen(9000, () => {
-    console.log('listening on port: 9000');
+server.listen(8080, () => {
+    console.log('listening on port: 8080');
 });
 
 io.on('connection', (socket) => {
